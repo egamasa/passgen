@@ -14,15 +14,15 @@ const (
 	symbolChars    = "!@#$%^&*"
 )
 
-func randomStr(base string, length int) string {
+func randomStr(base []byte, length int) string {
 	b := make([]byte, length)
 	rand.Read(b)
 
-	var result string
+	result := make([]byte, 0, length)
 	for _, v := range b {
-		result += string(base[int(v)%len(base)])
+		result = append(result, base[int(v)%len(base)])
 	}
-	return result
+	return string(result)
 }
 
 func main() {
@@ -50,15 +50,15 @@ func main() {
 		os.Exit(0)
 	}
 
-	var baseChars string
+	baseChars := make([]byte, 0)
 	for bit, chars := range baseCharsList {
 		if *s&bit == bit {
-			baseChars += chars
+			baseChars = append(baseChars, chars...)
 		}
 	}
 
 	if *a != "" {
-		baseChars += *a
+		baseChars = append(baseChars, *a...)
 	}
 
 	for i := 0; i < *n; i++ {
