@@ -15,7 +15,7 @@ builds:
       - -X main.Revision={{.ShortCommit}}
       - -X main.builtBy=goreleaser
     env:
-      - CGO_ENABLED=0
+      - GO111MODULE=on
 archives:
   -
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
